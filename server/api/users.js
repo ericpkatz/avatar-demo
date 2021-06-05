@@ -15,3 +15,15 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.headers.authorization);
+    const { avatar } = req.body;
+    await user.update({ avatar });
+    res.send(user);
+
+  } catch (err) {
+    next(err)
+  }
+})
